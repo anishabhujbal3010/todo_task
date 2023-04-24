@@ -1,4 +1,4 @@
-// delete a todo
+// 2]delete a todo from delete branch
 app.delete('/todos/:id', (req, res) => {
     const todos = JSON.parse(fs.readFileSync(todosFile));
     const todoId = req.params.id;
