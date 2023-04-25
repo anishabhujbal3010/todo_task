@@ -3,7 +3,15 @@ app.put('/todos/:id', (req, res) => {
     const todos = JSON.parse(fs.readFileSync(todosFile));
     const todoId = req.params.id;
     const updatedTodo = req.body;
-    console.log(todos);
+  
+    if (!updatedTodo.task) {
+      res.status(400).send('Task cannot be empty');
+      return;
+    }
+    else {
+      console.log(todos);
+    }
+    
     const todoIndex = todos.findIndex(todo => todo.id == todoId);
     if (todoIndex === -1) {
       res.status(404).send('Todo not found');
