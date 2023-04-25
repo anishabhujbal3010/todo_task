@@ -12,7 +12,61 @@
 				"method": "GET",
 				"header": []
 			},
-			"response": []
+			"response": [
+				{
+					"name": "New Request",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/todos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"todos"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Content-Length",
+							"value": "256"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"100-+sq7nBN2VF/fcdKTI20LYQw0Txs\""
+						},
+						{
+							"key": "Date",
+							"value": "Tue, 25 Apr 2023 13:13:19 GMT"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive"
+						},
+						{
+							"key": "Keep-Alive",
+							"value": "timeout=5"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"Id\": \"1\",\n        \"Name\": \"Ani\"\n    },\n    {\n        \"Id\": \"2\",\n        \"Name\": \"Om\"\n    },\n    {\n        \"title\": \"exam\",\n        \"description\": \"test\",\n        \"status\": \"test\",\n        \"due_date\": \"2020-01-01\",\n        \"id\": \"56234\"\n    },\n    {\n        \"title\": \"exam\",\n        \"id\": \"1\"\n    },\n    {\n        \"title\": \"test\",\n        \"description\": \"test\",\n        \"status\": \"test\",\n        \"due_date\": \"2020-01-01\",\n        \"id\": \"56234\"\n    }\n]"
+				}
+			]
 		},
 		{
 			"name": "Add",
