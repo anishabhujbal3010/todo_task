@@ -1,22 +1,40 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const CryptoJS = require('crypto-js');
 
 const app = express();
 app.use(bodyParser.json());
 
 const todosFile = './todos.json';
 
+// get a specific todo by ID
+app.get('/todos/:id', (req, res) => {
+  const todos = JSON.parse(fs.readFileSync(todosFile));
+  const todoId = req.params.id;
+  const todo = todos.find(todo => todo.id === todoId);
+  if (todo) {
+    res.send(todo);
+  } else {
+    res.status(404).send('Todo not found');
+  }
+});
+
 // get all todos
 app.get('/todos', (req, res) => {
   const todos = JSON.parse(fs.readFileSync(todosFile));
   res.send(todos);
-});
+});  
 
 // create a new todo
 app.post('/todos', (req, res) => {
   const todos = JSON.parse(fs.readFileSync(todosFile));
   const newTodo = req.body;
+
+  // Generate a unique ID for the new todo
+  const idBytes = CryptoJS.lib.WordArray.random(16);
+  const idString = CryptoJS.enc.Hex.stringify(idBytes);
+  newTodo.id = idString;
   todos.push(newTodo);
   fs.writeFileSync(todosFile, JSON.stringify(todos));
   res.send(newTodo);
@@ -48,7 +66,7 @@ app.delete('/todos/:id', (req, res) => {
   } else {
     todos.splice(todoIndex, 1);
     fs.writeFileSync(todosFile, JSON.stringify(todos));
-    res.send(`Todo with id ${todoId} deleted`);
+    res.send(`Todo with ID ${todoId} deleted successfully`);
   }
 });
 
