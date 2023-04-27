@@ -1,18 +1,27 @@
 [
     {
         "taskName": "drink",
+        "status": "completed",
         "id": "fd6c66f2d4737898b0de6b0850d1e56e"
     },
     {
         "taskName": "sleep",
+        "status": "in progress",
         "id": "ea6071d8a1523a0e3176d2c5d5878328"
     },
     {
-        "taskName": "fun",
-        "id": "6c598428307bc01fd9d80b9a42f026ec"
+        "taskName": "gym",
+        "status": "completed",
+        "id": "3df362d0b4c605f332cecf4029ff9fda"
+    },
+    {
+        "taskName": "love",
+        "status": "not started yet",
+        "id": "c17693aa2461a5e6873533bd207ee988"
     },
     {
         "taskName": "gym",
-        "id": "3df362d0b4c605f332cecf4029ff9fda"
+        "status": "in progress",
+        "id": "c7a77a64172ef293ca2b1a006e9adbe4"
     }
 ]

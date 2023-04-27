@@ -8,24 +8,6 @@ app.use(bodyParser.json());
 
 const todosFile = './todos.json';
 
-// get a specific todo by ID
-app.get('/todos/:id', (req, res) => {
-  const todos = JSON.parse(fs.readFileSync(todosFile));
-  const todoId = req.params.id;
-  const todo = todos.find(todo => todo.id === todoId);
-  if (todo) {
-    res.send(todo);
-  } else {
-    res.status(404).send('Todo not found');
-  }
-});
-
-// get all todos
-app.get('/todos', (req, res) => {
-  const todos = JSON.parse(fs.readFileSync(todosFile));
-  res.send(todos);
-});  
-
 // create a new todo
 app.post('/todos', (req, res) => {
   const todos = JSON.parse(fs.readFileSync(todosFile));
@@ -45,14 +27,21 @@ app.put('/todos/:id', (req, res) => {
   const todos = JSON.parse(fs.readFileSync(todosFile));
   const todoId = req.params.id;
   const updatedTodo = req.body;
-  console.log(todos);
   const todoIndex = todos.findIndex(todo => todo.id == todoId);
   if (todoIndex === -1) {
     res.status(404).send('Todo not found');
   } else {
-    todos[todoIndex] = updatedTodo;
+    // Update the status field if it's present in the request body
+    if (updatedTodo.status) {
+      todos[todoIndex].status = updatedTodo.status;
+    }
+
+    // Update other fields
+    todos[todoIndex].title = updatedTodo.title;
+    todos[todoIndex].description = updatedTodo.description;
+
     fs.writeFileSync(todosFile, JSON.stringify(todos));
-    res.send(updatedTodo);
+    res.send(todos[todoIndex]);
   }
 });
 
@@ -67,6 +56,31 @@ app.delete('/todos/:id', (req, res) => {
     todos.splice(todoIndex, 1);
     fs.writeFileSync(todosFile, JSON.stringify(todos));
     res.send(`Todo with ID ${todoId} deleted successfully`);
+  }
+});
+
+// get a specific todo by ID
+app.get('/todos/:id', (req, res) => {
+  const todos = JSON.parse(fs.readFileSync(todosFile));
+  const todoId = req.params.id;
+  const todo = todos.find(todo => todo.id === todoId);
+  if (todo) {
+    res.send(todo);
+  } else {
+    res.status(404).send('Todo not found');
+  }
+});
+
+// get all todos
+app.get('/todos', (req, res) => {
+  const todos = JSON.parse(fs.readFileSync(todosFile));
+  const status = req.query.status;
+
+  if (status) {
+    const filteredTodos = todos.filter(todo => todo.status === status);
+    res.send(filteredTodos);
+  } else {
+    res.send(todos);
   }
 });
 

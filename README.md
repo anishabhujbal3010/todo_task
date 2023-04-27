@@ -16,6 +16,7 @@ body:{
 ----------------------------------------
 get all data of todos
 http://localhost:3000/todos
+http://localhost:3000/todos?status=completed
 method: get
 
 ----------------------------------------
